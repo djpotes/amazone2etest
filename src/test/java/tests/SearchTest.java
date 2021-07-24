@@ -1,17 +1,23 @@
 package tests;
 
 import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.HomePage;
+import pages.ItemDetailPage;
+import pages.SearchResultPage;
 import utils.DriverInstance;
+import utils.Waits;
 
 public class SearchTest {
     private WebDriver driver;
+    private String baseUrl = "https://www.amazon.com";
 
     @Before
     public void setup(){
@@ -20,7 +26,16 @@ public class SearchTest {
 
     @Test
     public void testExample1(){
-        this.driver.get("https://www.google.com");
+        this.driver.get(baseUrl);
+        HomePage homePage = new HomePage(this.driver);
+        homePage.search("Alexa");
+        SearchResultPage searchResultPage = new SearchResultPage(this.driver);
+        searchResultPage.navigateToPage(2);
+        Waits.sleep(3000);
+        searchResultPage.clickItem(3);
+        Waits.sleep(3000);
+        ItemDetailPage itemDetailPage = new ItemDetailPage(this.driver);
+        assertTrue(itemDetailPage.isExistingBtnAddToCart());
     }
 
     @After
