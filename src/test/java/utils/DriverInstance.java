@@ -10,10 +10,13 @@ import java.util.concurrent.TimeUnit;
  * Singleton class to create the driver
  */
 public class DriverInstance {
-    public static WebDriver instance = null;
+    public static WebDriver driver = null;
 
-    public static WebDriver getWebDriver(){
-        if(instance == null){
+    /**
+     * Initialize the driver
+     */
+    public static void init(){
+        if(driver == null){
             String osName = System.getProperty("os.name").toLowerCase();
             if(osName.contains("mac")){
                 System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
@@ -21,13 +24,14 @@ public class DriverInstance {
             if(osName.contains("win")){
                 System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
             }
+            System.setProperty("webdriver.chrome.logfile", "chromedriver.log");
+            System.setProperty("webdriver.chrome.verboseLogging", "true");
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("start-maximized");
-            instance =  new ChromeDriver(options);
-            instance.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
-
+            driver =  new ChromeDriver(options);
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
         }
-        return instance;
-
+    }
+    public static void quit(){
+        driver.quit();
     }
 }

@@ -23,7 +23,7 @@ public class ItemDetailPage {
     }
 
     /**
-     * Validate if add to cart button exist
+     * Validate if add to cart button exists
      * @return Return true if add to cart button exists
      */
     public boolean isExistingBtnAddToCart(){

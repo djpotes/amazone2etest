@@ -1,8 +1,7 @@
 package tests;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
@@ -15,28 +14,27 @@ public class SearchTest {
     private WebDriver driver;
     private String baseUrl = "https://www.amazon.com";
 
-    @Before
-    public void setup(){
-        this.driver = DriverInstance.getWebDriver();
+    @BeforeClass
+    public static void setup(){
+        DriverInstance.init();
     }
 
     @Test
-    public void itemAvailableForPurshase(){
-        this.driver.get(baseUrl);
-        HomePage homePage = new HomePage(this.driver);
+    public void itemAvailableForPurchase(){
+        DriverInstance.driver.get(baseUrl);
+        HomePage homePage = new HomePage(DriverInstance.driver);
         homePage.search("Alexa");
-        SearchResultPage searchResultPage = new SearchResultPage(this.driver);
+        SearchResultPage searchResultPage = new SearchResultPage(DriverInstance.driver);
         searchResultPage.navigateToPage(2);
-        Waits.sleep(3000);
+        Waits.sleep(2000);
         searchResultPage.clickItem(3);
-        Waits.sleep(3000);
-        ItemDetailPage itemDetailPage = new ItemDetailPage(this.driver);
+        Waits.sleep(2000);
+        ItemDetailPage itemDetailPage = new ItemDetailPage(DriverInstance.driver);
         assertTrue(itemDetailPage.isExistingBtnAddToCart());
     }
 
-    @After
-    public void tearDown(){
-        this.driver.quit();
+    @AfterClass
+    public static void tearDown(){
+        DriverInstance.quit();
     }
-
 }
