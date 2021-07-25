@@ -6,8 +6,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Singleton class to create the driver
+ */
 public class DriverInstance {
     public static WebDriver instance = null;
+
     public static WebDriver getWebDriver(){
         if(instance == null){
             String osName = System.getProperty("os.name").toLowerCase();

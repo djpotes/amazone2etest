@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * Class to manipulate Home page
+ */
 public class HomePage {
 
     private WebDriver driver;
@@ -24,6 +27,10 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Search items
+     * @param value
+     */
     public void search(String value){
         txtSearch.sendKeys(value);
         btnSearch.click();

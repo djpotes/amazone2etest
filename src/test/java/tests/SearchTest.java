@@ -21,7 +21,7 @@ public class SearchTest {
     }
 
     @Test
-    public void testExample1(){
+    public void itemAvailableForPurshase(){
         this.driver.get(baseUrl);
         HomePage homePage = new HomePage(this.driver);
         homePage.search("Alexa");
